@@ -4,12 +4,18 @@ import CardContent from '@mui/material/CardContent';
 import {ref,onValue} from 'firebase/database'
 import {db} from '../firebase';
 const Home = () => {
-    const [users , setUsers] = useState([]);
+    const [users , setUsers] = useState([])
     const display=()=>{
     const starCountRef = ref(db,'posts/');
     onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
-        setUsers(data);
+        let res = [data]
+        res.map((user)=>{
+          console.log(user)
+        })
+        // for(let i in data){
+        //   console.log([data[i]]);
+        // }
 });
 }
 useEffect(()=>{
@@ -18,8 +24,7 @@ useEffect(()=>{
 
   return (
     <Box>
-    {users.map(user=>{
-    return(<Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345 }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         </Typography>
@@ -27,7 +32,6 @@ useEffect(()=>{
         </Typography>
       </CardContent>
     </Card>
-    )})
     </Box>
   )
 }
